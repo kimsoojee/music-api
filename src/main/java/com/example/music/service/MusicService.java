@@ -1,6 +1,7 @@
 package com.example.music.service;
 
 import com.example.music.dto.AlbumCountResponse;
+import com.example.music.exception.SongNotFoundException;
 import com.example.music.model.SongLike;
 import com.example.music.repository.AlbumRepository;
 import com.example.music.repository.SongLikeRepository;
@@ -25,9 +26,13 @@ public class MusicService {
   }
 
   public Mono<Void> likeSong(Long songId) {
-    SongLike songLike = new SongLike(songId);
-    return songRepository.incrementLikes(songId)
-      .then(songLikeRepository.save(songLike))
+    return songRepository.findById(songId)
+      .switchIfEmpty(Mono.error(new SongNotFoundException(songId)))
+      .flatMap(song -> {
+        SongLike songLike = new SongLike(songId);
+        return songRepository.incrementLikes(songId)
+          .then(songLikeRepository.save(songLike));
+      })
       .then();
   }
 }
