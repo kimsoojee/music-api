@@ -62,3 +62,6 @@ CREATE TABLE IF NOT EXISTS song_likes (
     liked_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     CONSTRAINT fk_song FOREIGN KEY (song_id) REFERENCES songs(id)
 );
+
+CREATE INDEX IF NOT EXISTS idx_album_release_date ON albums(release_date, artist)
+CREATE INDEX IF NOT EXISTS idx_song_likes_time ON song_likes(liked_at DESC, song_id);
