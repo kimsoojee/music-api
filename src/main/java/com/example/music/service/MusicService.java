@@ -1,20 +1,33 @@
 package com.example.music.service;
 
 import com.example.music.dto.AlbumCountResponse;
+import com.example.music.model.SongLike;
 import com.example.music.repository.AlbumRepository;
+import com.example.music.repository.SongLikeRepository;
+import com.example.music.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
 public class MusicService {
 
   private final AlbumRepository albumRepository;
+  private final SongLikeRepository songLikeRepository;
+  private final SongRepository songRepository;
 
   public Flux<AlbumCountResponse> getAlbumCountByYearAndArtist(int page, int size) {
     long offset = (long) page * size;
     return albumRepository.getAlbumCountByYearAndArtist(offset, size)
       .map(AlbumCountResponse::of);
+  }
+
+  public Mono<Void> likeSong(Long songId) {
+    SongLike songLike = new SongLike(songId);
+    return songRepository.incrementLikes(songId)
+      .then(songLikeRepository.save(songLike))
+      .then();
   }
 }
