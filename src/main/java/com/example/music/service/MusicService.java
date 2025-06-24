@@ -1,20 +1,41 @@
 package com.example.music.service;
 
 import com.example.music.dto.AlbumCountResponse;
+import com.example.music.exception.SongNotFoundException;
+import com.example.music.model.SongLike;
 import com.example.music.repository.AlbumRepository;
+import com.example.music.repository.SongLikeRepository;
+import com.example.music.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.reactive.TransactionalOperator;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
 public class MusicService {
 
   private final AlbumRepository albumRepository;
+  private final SongLikeRepository songLikeRepository;
+  private final SongRepository songRepository;
+  private final TransactionalOperator transactionalOperator;
 
   public Flux<AlbumCountResponse> getAlbumCountByYearAndArtist(int page, int size) {
     long offset = (long) page * size;
     return albumRepository.getAlbumCountByYearAndArtist(offset, size)
       .map(AlbumCountResponse::of);
+  }
+
+  public Mono<Void> likeSong(Long songId) {
+    return songRepository.findById(songId)
+      .switchIfEmpty(Mono.error(new SongNotFoundException(songId)))
+      .flatMap(song -> {
+        SongLike songLike = new SongLike(songId);
+        return transactionalOperator.transactional(
+          songRepository.incrementLikes(songId)
+            .then(songLikeRepository.save(songLike)));
+      })
+      .then();
   }
 }
