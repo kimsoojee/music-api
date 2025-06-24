@@ -1,6 +1,6 @@
 package com.example.music.controller;
 
-import com.example.music.repository.projection.AlbumCount;
+import com.example.music.dto.AlbumCountResponse;
 import com.example.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ public class MusicController {
   private final MusicService musicService;
 
   @GetMapping("/statistics/albums/by-year-and-artist")
-  public Flux<AlbumCount> getAlbumCountByYearAndArtist(
+  public Flux<AlbumCountResponse> getAlbumCountByYearAndArtist(
     @RequestParam(defaultValue = "0") int page,
     @RequestParam(defaultValue = "10") int size) {
     return musicService.getAlbumCountByYearAndArtist(page, size);
