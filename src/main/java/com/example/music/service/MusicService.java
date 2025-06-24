@@ -12,7 +12,8 @@ public class MusicService {
 
   private final AlbumRepository albumRepository;
 
-  public Flux<AlbumCount> getAlbumCountByYearAndArtist() {
-    return albumRepository.getAlbumCountByYearAndArtist();
+  public Flux<AlbumCount> getAlbumCountByYearAndArtist(int page, int size) {
+    long offset = (long) page * size;
+    return albumRepository.getAlbumCountByYearAndArtist(offset, size);
   }
 }
