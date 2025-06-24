@@ -2,6 +2,7 @@ package com.example.music.service;
 
 import com.example.music.dto.AlbumCountResponse;
 import com.example.music.dto.TopLikedSongResponse;
+import com.example.music.exception.DatabaseOperationException;
 import com.example.music.exception.SongNotFoundException;
 import com.example.music.model.SongLike;
 import com.example.music.repository.AlbumRepository;
@@ -25,7 +26,8 @@ public class MusicService {
   public Flux<AlbumCountResponse> getAlbumCountByYearAndArtist(int page, int size) {
     long offset = (long) page * size;
     return albumRepository.getAlbumCountByYearAndArtist(offset, size)
-      .map(AlbumCountResponse::of);
+      .map(AlbumCountResponse::of)
+      .onErrorMap(ex -> new DatabaseOperationException("앨범 수 조회 중 DB 에러 발생:", ex));
   }
 
   public Mono<Void> likeSong(Long songId) {
@@ -37,11 +39,14 @@ public class MusicService {
           songRepository.incrementLikes(songId)
             .then(songLikeRepository.save(songLike)));
       })
+      .onErrorMap(ex -> ex instanceof SongNotFoundException ? ex
+        : new DatabaseOperationException("좋아요 저장 중 DB 에러 발생:", ex))
       .then();
   }
 
   public Flux<TopLikedSongResponse> getTopLikedSongsLastHour() {
     return songRepository.findTopLikedSongsLastHour()
-      .map(TopLikedSongResponse::of);
+      .map(TopLikedSongResponse::of)
+      .onErrorMap(ex -> new DatabaseOperationException("TopLikedSongs 조회 중 DB 에러 발생:", ex));
   }
 }
