@@ -1,6 +1,7 @@
 package com.example.music.controller;
 
 import com.example.music.dto.AlbumCountResponse;
+import com.example.music.dto.TopLikedSongResponse;
 import com.example.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,10 @@ public class MusicController {
   public Mono<ResponseEntity<Void>> likeSong(@PathVariable Long id) {
     return musicService.likeSong(id)
       .then(Mono.just(ResponseEntity.ok().build()));
+  }
+
+  @GetMapping("/songs/recent-top-liked")
+  public Flux<TopLikedSongResponse> getTopLikedSongsLastHour() {
+    return musicService.getTopLikedSongsLastHour();
   }
 }
