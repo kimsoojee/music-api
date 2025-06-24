@@ -1,3 +1,11 @@
 spring:
   application:
     name: music
+  r2dbc:
+    url: r2dbc:h2:mem:///musicdb
+    username: sa
+    password:
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
