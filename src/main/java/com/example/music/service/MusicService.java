@@ -1,6 +1,7 @@
 package com.example.music.service;
 
 import com.example.music.dto.AlbumCountResponse;
+import com.example.music.dto.TopLikedSongResponse;
 import com.example.music.exception.SongNotFoundException;
 import com.example.music.model.SongLike;
 import com.example.music.repository.AlbumRepository;
@@ -37,5 +38,10 @@ public class MusicService {
             .then(songLikeRepository.save(songLike)));
       })
       .then();
+  }
+
+  public Flux<TopLikedSongResponse> getTopLikedSongsLastHour() {
+    return songRepository.findTopLikedSongsLastHour()
+      .map(TopLikedSongResponse::of);
   }
 }
