@@ -1,0 +1,18 @@
+package com.example.music.service;
+
+import com.example.music.repository.AlbumRepository;
+import com.example.music.repository.projection.AlbumCount;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+
+@Service
+@RequiredArgsConstructor
+public class MusicService {
+
+  private final AlbumRepository albumRepository;
+
+  public Flux<AlbumCount> getAlbumCountByYearAndArtist() {
+    return albumRepository.getAlbumCountByYearAndArtist();
+  }
+}
