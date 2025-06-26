@@ -14,6 +14,7 @@ import com.example.music.repository.SongLikeRepository;
 import com.example.music.repository.SongRepository;
 import com.example.music.repository.projection.AlbumCount;
 import com.example.music.repository.projection.TopLikedSong;
+import com.example.music.service.impl.MusicServiceImpl;
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -44,7 +45,7 @@ class MusicServiceTest {
   private TransactionalOperator transactionalOperator;
 
   @InjectMocks
-  private MusicService musicService;
+  private MusicServiceImpl musicService;
 
   private AlbumCount testAlbumCount;
   private TopLikedSong testTopLikedSong;

@@ -4,12 +4,14 @@ import java.sql.SQLException;
 import lombok.extern.slf4j.Slf4j;
 import org.h2.tools.Server;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 
 @Slf4j
 @Configuration
+@Profile("!test")
 public class H2ConsoleConfig {
 
   private Server webServer;

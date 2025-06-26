@@ -12,7 +12,7 @@ VALUES
     ('Another Album', 'Another Artist', '2024-06-20', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('Third Album', 'Third Artist', '2024-09-10', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO songs (album_id, song, length, likes, created_at, updated_at)
+INSERT INTO songs (album_id, title, length, likes, created_at, updated_at)
 VALUES
     (1, 'Most Liked Song', '3:30', 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (2, 'Second Most Liked', '4:00', 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),

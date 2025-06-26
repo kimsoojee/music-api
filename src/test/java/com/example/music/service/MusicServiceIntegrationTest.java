@@ -8,18 +8,21 @@ import com.example.music.model.SongLike;
 import com.example.music.repository.AlbumRepository;
 import com.example.music.repository.SongLikeRepository;
 import com.example.music.repository.SongRepository;
+import com.example.music.service.impl.MusicServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.reactive.TransactionalOperator;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class MusicServiceIntegrationTest {
 
   @Autowired
@@ -104,7 +107,7 @@ class MusicServiceIntegrationTest {
     Mockito.doReturn(Mono.error(new RuntimeException("저장 실패")))
       .when(spyRepository).save(any(SongLike.class));
 
-    MusicService testMusicService = new MusicService(
+    MusicService testMusicService = new MusicServiceImpl(
       albumRepository, spyRepository, songRepository, transactionalOperator);
 
     // 에러 발생했는지 확인

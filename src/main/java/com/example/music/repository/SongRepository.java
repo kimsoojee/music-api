@@ -20,8 +20,8 @@ public interface SongRepository extends R2dbcRepository<Song, Long> {
         WHERE liked_at >= DATEADD('HOUR', -1, CURRENT_TIMESTAMP)
         GROUP BY song_id
     )
-    SELECT s.id, s.title, s.length, s.likes, a.artist,
-           a.title as album, a.release_date,
+    SELECT s.id, s.title as song_title, s.length, s.likes, a.artist,
+           a.title as album_title, a.release_date,
            rl.like_count as like_count
     FROM recent_likes rl
     INNER JOIN songs s ON s.id = rl.song_id

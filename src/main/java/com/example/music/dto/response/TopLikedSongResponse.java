@@ -16,9 +16,9 @@ public record TopLikedSongResponse(
   public static TopLikedSongResponse of(TopLikedSong projection) {
     return new TopLikedSongResponse(
       projection.artist(),
-      projection.song(),
+      projection.songTitle(),
       projection.length(),
-      projection.album(),
+      projection.albumTitle(),
       projection.releaseDate(),
       projection.likes(),
       projection.likeCount()
