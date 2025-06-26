@@ -1,6 +1,9 @@
 spring:
   application:
     name: music
+  h2:
+    console:
+      enabled: true
   r2dbc:
     url: r2dbc:h2:mem:///musicdb
     username: sa
@@ -9,4 +12,3 @@ spring:
     init:
       mode: always
       schema-locations: classpath:schema.sql
-      data-locations: classpath:data.sql
