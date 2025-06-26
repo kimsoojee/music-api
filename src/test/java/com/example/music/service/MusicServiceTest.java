@@ -3,8 +3,8 @@ package com.example.music.service;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.example.music.dto.AlbumCountResponse;
-import com.example.music.dto.TopLikedSongResponse;
+import com.example.music.dto.response.AlbumCountResponse;
+import com.example.music.dto.response.TopLikedSongResponse;
 import com.example.music.exception.DatabaseOperationException;
 import com.example.music.exception.SongNotFoundException;
 import com.example.music.model.Song;
@@ -14,6 +14,8 @@ import com.example.music.repository.SongLikeRepository;
 import com.example.music.repository.SongRepository;
 import com.example.music.repository.projection.AlbumCount;
 import com.example.music.repository.projection.TopLikedSong;
+import com.example.music.service.impl.MusicServiceImpl;
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -43,7 +45,7 @@ class MusicServiceTest {
   private TransactionalOperator transactionalOperator;
 
   @InjectMocks
-  private MusicService musicService;
+  private MusicServiceImpl musicService;
 
   private AlbumCount testAlbumCount;
   private TopLikedSong testTopLikedSong;
@@ -54,11 +56,11 @@ class MusicServiceTest {
     testAlbumCount = new AlbumCount(2025, "Test Artist", 5L);
 
     testTopLikedSong = new TopLikedSong(1L, "Test Artist", "Test Song", "3:30",
-      "Test Album", "01/01/2025", 100L, 10L);
+      "Test Album", LocalDate.of(2025,1,1), 100L, 10L);
 
     testSong = new Song();
     testSong.setId(1L);
-    testSong.setSong("Test Song");
+    testSong.setTitle("Test Song");
   }
 
   @Nested
@@ -140,7 +142,7 @@ class MusicServiceTest {
 
       StepVerifier.create(musicService.getTopLikedSongsLastHour())
         .expectNext(new TopLikedSongResponse("Test Artist", "Test Song", "3:30",
-          "Test Album", "01/01/2025", 100L, 10L))
+          "Test Album", LocalDate.of(2025,1,1), 100L, 10L))
         .verifyComplete();
     }
 

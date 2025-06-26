@@ -1,6 +1,6 @@
 package com.example.music.exception;
 
-import com.example.music.dto.ErrorResponse;
+import com.example.music.dto.response.ErrorResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,6 +32,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(Exception.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Mono<ErrorResponse> handleUnexpectedError(Exception ex) {
+    ex.printStackTrace();
     return Mono.just(new ErrorResponse("INTERNAL_SERVER_ERROR", "내부 서버 오류가 발생했습니다."));
   }
 }

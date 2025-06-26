@@ -1,6 +1,7 @@
 package com.example.music.repository;
 
 import com.example.music.model.Song;
+import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,10 @@ class SongRepositoryTest {
     StepVerifier.create(songRepository.findTopLikedSongsLastHour())
       .expectNextMatches(topLikedSong ->
         topLikedSong.artist().equals("Popular Artist") &&
-          topLikedSong.song().equals("Most Liked Song") &&
+          topLikedSong.songTitle().equals("Most Liked Song") &&
           topLikedSong.length().equals("3:30") &&
-          topLikedSong.album().equals("Popular Album") &&
-          topLikedSong.releaseDate().equals("15/03/2024") &&
+          topLikedSong.albumTitle().equals("Popular Album") &&
+          topLikedSong.releaseDate().equals(LocalDate.of(2024,3,15)) &&
           topLikedSong.likeCount() == 3L
       )
       .expectNextCount(2) // 나머지 두개

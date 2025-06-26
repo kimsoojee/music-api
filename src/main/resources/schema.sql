@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS albums (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    artist VARCHAR(255) NOT NULL,
-    release_date VARCHAR(50) NOT NULL,
+    artist VARCHAR(800) NOT NULL,
+    release_date DATE NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     CONSTRAINT uk_album_artist_title UNIQUE (artist, title)
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS albums (
 CREATE TABLE IF NOT EXISTS songs (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     album_id BIGINT NOT NULL,
-    song VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     text CLOB,
     length VARCHAR(10),
     emotion VARCHAR(50),
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS songs (
     tempo DOUBLE,
     loudness DOUBLE,
     time_signature VARCHAR(10),
-    explicit BOOLEAN DEFAULT FALSE,
+    explicit VARCHAR(10),
     popularity INTEGER DEFAULT 0,
     energy INTEGER,
     danceability INTEGER,
@@ -41,19 +41,20 @@ CREATE TABLE IF NOT EXISTS songs (
     good_for_social_gatherings BOOLEAN DEFAULT FALSE,
     good_for_morning_routine BOOLEAN DEFAULT FALSE,
 
-    similar_artist1 VARCHAR(255),
+    similar_artist1 VARCHAR(800),
     similar_song1 VARCHAR(255),
     similarity_score1 DOUBLE,
-    similar_artist2 VARCHAR(255),
+    similar_artist2 VARCHAR(800),
     similar_song2 VARCHAR(255),
     similarity_score2 DOUBLE,
-    similar_artist3 VARCHAR(255),
+    similar_artist3 VARCHAR(800),
     similar_song3 VARCHAR(255),
     similarity_score3 DOUBLE,
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    CONSTRAINT fk_album FOREIGN KEY (album_id) REFERENCES albums(id)
+    CONSTRAINT fk_album FOREIGN KEY (album_id) REFERENCES albums(id),
+    CONSTRAINT uk_song_album_id_title UNIQUE (album_id, title)
 );
 
 CREATE TABLE IF NOT EXISTS song_likes (
@@ -63,5 +64,5 @@ CREATE TABLE IF NOT EXISTS song_likes (
     CONSTRAINT fk_song FOREIGN KEY (song_id) REFERENCES songs(id)
 );
 
-CREATE INDEX IF NOT EXISTS idx_album_release_date ON albums(release_date, artist)
-CREATE INDEX IF NOT EXISTS idx_song_likes_time ON song_likes(liked_at DESC, song_id);
+CREATE INDEX IF NOT EXISTS idx_album_release_date ON albums(release_date, artist);
+CREATE INDEX IF NOT EXISTS idx_song_likes_time ON song_likes(liked_at, song_id);
