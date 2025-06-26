@@ -1,6 +1,7 @@
 # Music API
 
 ## Features
+- 파일 데이터 저장
 - 연도 & 가수별 발매 앨범 수 조회
 - 노래별 '좋아요' 증가
 - 최근 1시간 동안 '좋아요' 증가 Top 10 조회
@@ -13,6 +14,11 @@
 - H2 Database
 
 ## API Endpoints
+
+### 파일 데이터 저장
+```http
+GET /api/data/load
+```
 
 ### 연도 & 가수별 발매 앨범 수 페이지 단위 조회
 ```http
@@ -42,11 +48,15 @@ GET /api/music/songs/recent-top-liked
 ./gradlew build
 ```
 
+2. 기초 데이터 파일 저장
+
+- `main/java/resource` 에 기초 데이터 파일을 `dataset.json` 이름으로 저장
+- [파일 링크](https://www.kaggle.com/datasets/devdope/900k-spotify?select=900k+Definitive+Spotify+Dataset.json)
+
 2. 프로젝트 실행
 ```bash
 ./gradlew bootRun
 ```
-프로젝트가 시작되면 schema.sql, data.sql 이 먼저 실행되어 table 생성 후 테스트 데이터가 추가됨
 
 ## 테이블 정보
 
@@ -56,8 +66,8 @@ GET /api/music/songs/recent-top-liked
 |--------------|--------------|-----------------------------|
 | id           | BIGINT       | PRIMARY KEY, AUTO_INCREMENT |
 | title        | VARCHAR(255) | NOT NULL                    |
-| artist       | VARCHAR(255) | NOT NULL                    |
-| release_date | VARCHAR(50)  | NOT NULL                    |
+| artist       | VARCHAR(800) | NOT NULL                    |
+| release_date | DATE         | NOT NULL                    |
 | created_at   | TIMESTAMP    |                             |
 | updated_at   | TIMESTAMP    |                             |
 
@@ -68,7 +78,7 @@ GET /api/music/songs/recent-top-liked
 |------------|--------------|-----------------------------------|
 | id         | BIGINT       | PRIMARY KEY, AUTO_INCREMENT       |
 | album_id   | BIGINT       | NOT NULL, FOREIGN KEY (albums.id) |
-| song       | VARCHAR(255) | NOT NULL                          |
+| title      | VARCHAR(255) | NOT NULL                          |
 | likes      | BIGINT       | DEFAULT 0                         |
 | created_at | TIMESTAMP    |                                   |
 | updated_at | TIMESTAMP    |                                   |
