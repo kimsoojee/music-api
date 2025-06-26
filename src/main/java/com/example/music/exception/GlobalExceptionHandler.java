@@ -1,6 +1,6 @@
 package com.example.music.exception;
 
-import com.example.music.dto.ErrorResponse;
+import com.example.music.dto.response.ErrorResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

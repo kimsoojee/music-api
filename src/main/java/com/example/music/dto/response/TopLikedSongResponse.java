@@ -1,4 +1,4 @@
-package com.example.music.dto;
+package com.example.music.dto.response;
 
 import com.example.music.repository.projection.TopLikedSong;
 import java.time.LocalDate;

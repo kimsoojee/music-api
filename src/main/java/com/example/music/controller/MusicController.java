@@ -1,7 +1,7 @@
 package com.example.music.controller;
 
-import com.example.music.dto.AlbumCountResponse;
-import com.example.music.dto.TopLikedSongResponse;
+import com.example.music.dto.response.AlbumCountResponse;
+import com.example.music.dto.response.TopLikedSongResponse;
 import com.example.music.service.MusicService;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

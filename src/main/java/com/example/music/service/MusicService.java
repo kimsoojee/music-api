@@ -1,7 +1,7 @@
 package com.example.music.service;
 
-import com.example.music.dto.AlbumCountResponse;
-import com.example.music.dto.TopLikedSongResponse;
+import com.example.music.dto.response.AlbumCountResponse;
+import com.example.music.dto.response.TopLikedSongResponse;
 import com.example.music.exception.DatabaseOperationException;
 import com.example.music.exception.SongNotFoundException;
 import com.example.music.model.SongLike;
