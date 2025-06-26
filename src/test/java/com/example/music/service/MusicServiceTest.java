@@ -59,7 +59,7 @@ class MusicServiceTest {
 
     testSong = new Song();
     testSong.setId(1L);
-    testSong.setSong("Test Song");
+    testSong.setTitle("Test Song");
   }
 
   @Nested

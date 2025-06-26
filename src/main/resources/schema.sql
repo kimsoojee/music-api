@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS albums (
 CREATE TABLE IF NOT EXISTS songs (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     album_id BIGINT NOT NULL,
-    song VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     text CLOB,
     length VARCHAR(10),
     emotion VARCHAR(50),
@@ -42,13 +42,13 @@ CREATE TABLE IF NOT EXISTS songs (
     good_for_social_gatherings BOOLEAN DEFAULT FALSE,
     good_for_morning_routine BOOLEAN DEFAULT FALSE,
 
-    similar_artist1 VARCHAR(255),
+    similar_artist1 VARCHAR(800),
     similar_song1 VARCHAR(255),
     similarity_score1 DOUBLE,
-    similar_artist2 VARCHAR(255),
+    similar_artist2 VARCHAR(800),
     similar_song2 VARCHAR(255),
     similarity_score2 DOUBLE,
-    similar_artist3 VARCHAR(255),
+    similar_artist3 VARCHAR(800),
     similar_song3 VARCHAR(255),
     similarity_score3 DOUBLE,
 

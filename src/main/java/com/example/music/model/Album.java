@@ -1,5 +1,6 @@
 package com.example.music.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Data;

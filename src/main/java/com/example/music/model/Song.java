@@ -1,5 +1,6 @@
 package com.example.music.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,8 @@ public class Song {
 
   private Long albumId;
 
-  private String song;
+  @JsonAlias("songTitle")
+  private String title;
   private String text;
   private String length;
   private String emotion;
@@ -40,15 +42,15 @@ public class Song {
 
   private Long likes = 0L;
 
-  private Boolean goodForParty = false;
-  private Boolean goodForWorkStudy = false;
-  private Boolean goodForRelaxationMeditation = false;
-  private Boolean goodForExercise = false;
-  private Boolean goodForRunning = false;
-  private Boolean goodForYogaStretching = false;
-  private Boolean goodForDriving = false;
-  private Boolean goodForSocialGatherings = false;
-  private Boolean goodForMorningRoutine = false;
+  private Boolean goodForParty;
+  private Boolean goodForWorkStudy;
+  private Boolean goodForRelaxationMeditation;
+  private Boolean goodForExercise;
+  private Boolean goodForRunning;
+  private Boolean goodForYogaStretching;
+  private Boolean goodForDriving;
+  private Boolean goodForSocialGatherings;
+  private Boolean goodForMorningRoutine;
 
   private String similarArtist1;
   private String similarSong1;
