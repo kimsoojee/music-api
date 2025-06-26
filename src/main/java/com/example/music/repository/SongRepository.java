@@ -30,4 +30,6 @@ public interface SongRepository extends R2dbcRepository<Song, Long> {
     LIMIT 10
     """)
   Flux<TopLikedSong> findTopLikedSongsLastHour();
+
+  Mono<Song> findByAlbumIdAndTitle(Long albumId, String title);
 }

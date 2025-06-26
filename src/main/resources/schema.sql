@@ -1,8 +1,7 @@
 CREATE TABLE IF NOT EXISTS albums (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    artist VARCHAR(255) NOT NULL,
-    release_date VARCHAR(50) NOT NULL,
+    artist VARCHAR(800) NOT NULL,
     release_date DATE NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
@@ -54,7 +53,8 @@ CREATE TABLE IF NOT EXISTS songs (
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    CONSTRAINT fk_album FOREIGN KEY (album_id) REFERENCES albums(id)
+    CONSTRAINT fk_album FOREIGN KEY (album_id) REFERENCES albums(id),
+    CONSTRAINT uk_song_album_id_title UNIQUE (album_id, title)
 );
 
 CREATE TABLE IF NOT EXISTS song_likes (
