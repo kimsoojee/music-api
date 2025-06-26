@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import com.example.music.dto.AlbumCountResponse;
 import com.example.music.dto.TopLikedSongResponse;
 import com.example.music.service.MusicService;
+import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -77,7 +78,7 @@ class MusicControllerTest {
     void getTopLikedSongsLastHour_ReturnsOk() {
       var topLikedSong = new TopLikedSongResponse(
         "Test Artist", "Test Song", "3:30",
-        "Test Album", "2025", 100L, 10L
+        "Test Album", LocalDate.of(2025,1,1), 100L, 10L
       );
 
       when(musicService.getTopLikedSongsLastHour())

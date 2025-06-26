@@ -28,8 +28,8 @@ public class Song {
   private Double loudness;
 
   private String timeSignature;
-  private Boolean explicit = false;
-  private Integer popularity = 0;
+  private String explicit;
+  private Integer popularity;
   private Integer energy;
   private Integer danceability;
   private Integer positiveness;

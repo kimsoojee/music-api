@@ -1,13 +1,14 @@
 package com.example.music.dto;
 
 import com.example.music.repository.projection.TopLikedSong;
+import java.time.LocalDate;
 
 public record TopLikedSongResponse(
   String artist,
   String song,
   String length,
   String album,
-  String releaseDate,
+  LocalDate releaseDate,
   Long likes,
   Long likeCount
 ) {

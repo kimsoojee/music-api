@@ -1,5 +1,6 @@
 package com.example.music.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class Album {
   private Long id;
   private String title;
   private String artist;
-  private String releaseDate;
+  private LocalDate releaseDate;
   @CreatedDate
   private LocalDateTime createdAt;
   @LastModifiedDate

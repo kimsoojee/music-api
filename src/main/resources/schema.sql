@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS albums (
     title VARCHAR(255) NOT NULL,
     artist VARCHAR(255) NOT NULL,
     release_date VARCHAR(50) NOT NULL,
+    release_date DATE NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     CONSTRAINT uk_album_artist_title UNIQUE (artist, title)
@@ -20,7 +21,7 @@ CREATE TABLE IF NOT EXISTS songs (
     tempo DOUBLE,
     loudness DOUBLE,
     time_signature VARCHAR(10),
-    explicit BOOLEAN DEFAULT FALSE,
+    explicit VARCHAR(10),
     popularity INTEGER DEFAULT 0,
     energy INTEGER,
     danceability INTEGER,
@@ -63,5 +64,5 @@ CREATE TABLE IF NOT EXISTS song_likes (
     CONSTRAINT fk_song FOREIGN KEY (song_id) REFERENCES songs(id)
 );
 
-CREATE INDEX IF NOT EXISTS idx_album_release_date ON albums(release_date, artist)
-CREATE INDEX IF NOT EXISTS idx_song_likes_time ON song_likes(liked_at DESC, song_id);
+CREATE INDEX IF NOT EXISTS idx_album_release_date ON albums(release_date, artist);
+CREATE INDEX IF NOT EXISTS idx_song_likes_time ON song_likes(liked_at, song_id);
